@@ -1,28 +1,35 @@
 {
-  "name": "jecom-client",
-  "version": "0.1.0",
+  "name": "jecom-rc",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-variants": "^1.0.0"
+    "@react-router/dev": "^7.7.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/react-router-dom": "^5.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.7.1",
+    "react-router-dom": "^7.7.1",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@eslint/js": "^9.30.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "^7.0.4"
   }
 }

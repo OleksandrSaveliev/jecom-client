@@ -1,5 +1,5 @@
-import { Product } from "@/types/product";
-import Link from "next/link";
+import type { Product } from "../../types/product";
+import { Link } from "react-router";
 import React from "react";
 import ImageWithFallback from "../../components/ImageWithFallback";
 
@@ -9,7 +9,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Link
-      href={`/products/${product.id}`}
+      to={`/products/${product.id}`}
       className="group block overflow-hidden"
     >
       <ImageWithFallback

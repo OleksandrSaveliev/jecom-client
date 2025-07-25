@@ -1,19 +1,18 @@
 "use client";
-import ProductCard from "@/modules/Products/ProductCard";
-import { Product } from "@/types/product";
+import ProductCard from "./ProductCard";
+import type { Product } from "../../types/product";
 import { useState, useEffect } from "react";
+import { fetchProducts } from "../../api/products";
 const ProductPage = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
 
   useEffect(() => {
-    async function fetchProducts() {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`
-      );
-      const data = await res.json();
-      setProducts(data);
-    }
-    fetchProducts();
+    fetchProducts()
+      .then(setProducts)
+      .catch((err) => {
+        console.error("Failed to fetch products:", err);
+        setProducts([]);
+      });
   }, []);
 
   if (!products) return <div>Loading...</div>;

@@ -1,37 +1,44 @@
 "use client";
-import Loading from "@/app/loading";
-import Button from "@/components/Button";
-import ImageWithFallback from "@/components/ImageWithFallback";
-import { Product } from "@/types/product";
-import { formatDate } from "@/utils/formatDate";
-import { notFound, useParams } from "next/navigation";
+import { useParams } from "react-router";
+import Button from "../../components/Button";
+import ImageWithFallback from "../../components/ImageWithFallback";
+import type { Product } from "../../types/product";
+import { formatDate } from "../../utils/formatDate";
 import { useEffect, useState } from "react";
 
-const ProductPage = () => {
+const ProductItemPage = () => {
   const { id } = useParams();
+  // const router = useRouter();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [errorStatus, setErrorStatus] = useState<number | null>();
+  const [errorStatus, setErrorStatus] = useState<number | null>(null);
 
   useEffect(() => {
     async function fetchProduct() {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`
+        `${import.meta.env.VITE_API_BASE_URL}/products/${id}`
       );
+      if (!res.ok) {
+        setErrorStatus(res.status);
+        setLoading(false);
+        return;
+      }
       const data = await res.json();
       setProduct(data);
       setLoading(false);
-      if (!res.ok) {
-        setErrorStatus(res.status);
-      }
     }
     fetchProduct();
-  }, []);
+  }, [id]);
 
-  if (errorStatus === 404) return notFound();
-  if (loading) return <Loading />;
-  if (!product) return;
+  useEffect(() => {
+    if (errorStatus === 404) {
+      // router.push("/not-found");
+    }
+  }, [errorStatus, id]);
+
+  if (loading) return "Loading...";
+  if (!product) return null;
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <div className="flex justify-between sm:mb-4 items-center">
@@ -59,7 +66,7 @@ const ProductPage = () => {
                 />
               </svg>
 
-              <p className="text-sm whitespace-nowrap">Avaliable</p>
+              <p className="text-sm whitespace-nowrap">Available</p>
             </span>
           ) : (
             <span className="inline-flex items-center justify-center rounded-full border border-red-500 px-2.5 py-0.5 text-red-700">
@@ -78,7 +85,7 @@ const ProductPage = () => {
                 />
               </svg>
 
-              <p className="text-sm whitespace-nowrap">Not Avaliable</p>
+              <p className="text-sm whitespace-nowrap">Not Available</p>
             </span>
           )}
           <p className="text-gray-400 text-sm sm:mt-2">
@@ -105,4 +112,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductItemPage;

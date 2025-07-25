@@ -10,3 +10,14 @@ export interface Product {
   quantity: number;
   imageUrl: string;
 }
+
+export interface ProductDTO {
+  name: string;
+  brand: string;
+  category: string;
+  description: string;
+  price: number;
+  releaseDate: string;
+  available: boolean;
+  quantity: number;
+}

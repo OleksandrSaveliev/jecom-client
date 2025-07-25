@@ -1,55 +1,35 @@
 "use client";
 
+import { createProduct, uploadProductImage } from "../../api/products";
+
 export default function ProductForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    const isAvaliable = data.isAvaliable === "on";
-    console.log(isAvaliable);
-    const productRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.title,
-          brand: data.brand,
-          category: data.category,
-          description: data.description,
-          price: data.price,
-          releaseDate: data.release_date,
-          quantity: data.quantity,
-          isAvaliable,
-        }),
+    const available = data.isAvailable === "on";
+
+    try {
+      const product = {
+        name: data.title as string,
+        brand: data.brand as string,
+        category: data.category as string,
+        description: data.description as string,
+        price: Number(data.price),
+        releaseDate: data.release_date as string,
+        quantity: Number(data.quantity),
+        available,
+      };
+      const { id: productId } = await createProduct(product);
+
+      const file = formData.get("file-upload") as File;
+      if (file && file.size > 0) {
+        await uploadProductImage(productId.toString(), file);
       }
-    );
-    const { id: productId } = await productRes.json();
-
-    const file = formData.get("file-upload") as File;
-    if (file) {
-      const imageFormData = new FormData();
-      imageFormData.append("image", file);
-      imageFormData.append("productId", productId);
-
-      const imageRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/images/upload`,
-        {
-          method: "POST",
-          body: imageFormData,
-        }
-      );
-
-      if (!imageRes.ok) {
-        console.error("Image upload failed");
-      } else {
-        const imageText = await imageRes.text();
-        console.log("Image uploaded:", imageText);
-      }
-    } else {
-      console.warn("No image selected.");
+      // Optionally: show success message or redirect
+    } catch (err) {
+      // Optionally: show error message
+      console.error(err);
     }
   };
   return (

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useState } from "react";
 
 type ProductImageProps = {
@@ -15,13 +14,14 @@ export default function ImageWithFallback({
   const [hasError, setHasError] = useState(false);
 
   return (
-    <Image
+    <img
       src={hasError ? "/placeholder.svg" : src}
       alt={alt}
       height={450}
       width={200}
       onError={() => setHasError(true)}
       className={style}
+      loading="lazy"
     />
   );
 }

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -6,7 +6,7 @@ const Header = () => {
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4">
         <Link
           className="block text-blue-900"
-          href="/"
+          to="/"
         >
           <span className="sr-only">Home</span>
           <svg
@@ -31,7 +31,7 @@ const Header = () => {
               <li>
                 <Link
                   className="text-gray-700 transition hover:text-gray-500/75"
-                  href="/products"
+                  to="/products"
                 >
                   Productss
                 </Link>
@@ -40,7 +40,7 @@ const Header = () => {
               <li>
                 <Link
                   className="text-gray-700 transition hover:text-gray-500/75"
-                  href="/products/create"
+                  to="/products/add-product"
                 >
                   Careers
                 </Link>
