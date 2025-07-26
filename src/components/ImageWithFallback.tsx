@@ -1,4 +1,5 @@
 import { useState } from "react";
+import placeholder from "../assets/placeholder.svg"; // adjust path as needed
 
 type ProductImageProps = {
   src: string;
@@ -15,7 +16,7 @@ export default function ImageWithFallback({
 
   return (
     <img
-      src={hasError ? "/placeholder.svg" : src}
+      src={hasError ? placeholder : src}
       alt={alt}
       height={450}
       width={200}
