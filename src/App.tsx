@@ -1,10 +1,11 @@
 import "./App.css";
 
 import { Route, Routes } from "react-router";
-import Home from "../src/home";
+import Home from "../src/Home";
 import ProductsPage from "./modules/Products/ProductPage";
 import Layout from "./Layout";
 import CreateProductPage from "./modules/Products/CreateProduct";
+import ProductItemPage from "./modules/Products/ProductItemPage";
 
 export default function App() {
   return (
@@ -18,6 +19,10 @@ export default function App() {
           <Route
             index
             element={<ProductsPage />}
+          ></Route>
+          <Route
+            path=":id"
+            element={<ProductItemPage />}
           ></Route>
           <Route
             path="add-product"

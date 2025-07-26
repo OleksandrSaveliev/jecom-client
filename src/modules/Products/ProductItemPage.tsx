@@ -5,37 +5,31 @@ import ImageWithFallback from "../../components/ImageWithFallback";
 import type { Product } from "../../types/product";
 import { formatDate } from "../../utils/formatDate";
 import { useEffect, useState } from "react";
+import { fetchProductById } from "../../api/products";
 
 const ProductItemPage = () => {
   const { id } = useParams();
-  // const router = useRouter();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [errorStatus, setErrorStatus] = useState<number | null>(null);
 
   useEffect(() => {
-    async function fetchProduct() {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/products/${id}`
-      );
-      if (!res.ok) {
-        setErrorStatus(res.status);
+    if (!id) {
+      console.error("Product ID is not provided");
+      return;
+    }
+    fetchProductById(id)
+      .then((data) => {
+        setProduct(data);
         setLoading(false);
-        return;
-      }
-      const data = await res.json();
-      setProduct(data);
-      setLoading(false);
-    }
-    fetchProduct();
+      })
+      .catch((err) => {
+        console.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [id]);
-
-  useEffect(() => {
-    if (errorStatus === 404) {
-      // router.push("/not-found");
-    }
-  }, [errorStatus, id]);
 
   if (loading) return "Loading...";
   if (!product) return null;

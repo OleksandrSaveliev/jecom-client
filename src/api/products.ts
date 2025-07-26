@@ -1,5 +1,13 @@
 import type { Product, ProductDTO } from "../types/product";
 
+export async function fetchProductById(productId: string): Promise<Product> {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/products/${productId}`
+  );
+  if (!res.ok) throw new Error("Failed to fetch product");
+  return res.json();
+}
+
 export async function fetchProducts(): Promise<Product[]> {
   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/products`);
   if (!res.ok) throw new Error("Failed to fetch products");
