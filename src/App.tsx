@@ -6,6 +6,7 @@ import ProductsPage from "./modules/Products/ProductPage";
 import Layout from "./Layout";
 import CreateProductPage from "./modules/Products/CreateProduct";
 import ProductItemPage from "./modules/Products/ProductItemPage";
+import LoginPage from "./modules/Auth/LoginPage";
 
 export default function App() {
   return (
@@ -29,6 +30,10 @@ export default function App() {
             element={<CreateProductPage />}
           ></Route>
         </Route>
+        <Route
+          path="login"
+          element={<LoginPage />}
+        ></Route>
       </Route>
     </Routes>
   );

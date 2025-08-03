@@ -14,7 +14,7 @@ const button = tv({
     size: {
       sm: "text-sm px-3 py-2",
       md: "text-base font-medium px-5 py-3",
-      lg: "px-4 py-3 text-lg",
+      lg: "px-4 py-3 text-lg w-full",
     },
   },
 
@@ -28,10 +28,16 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg";
   color?: "primary" | "secondary" | "action";
   children: React.ReactNode;
+  type?: "button" | "submit" | "reset";
 }
 
-const Button: React.FC<ButtonProps> = ({ size, color, children }) => (
-  <button className={button({ size, color })}>{children}</button>
+const Button: React.FC<ButtonProps> = ({ size, color, children, type }) => (
+  <button
+    type={type}
+    className={button({ size, color })}
+  >
+    {children}
+  </button>
 );
 
 export default Button;
