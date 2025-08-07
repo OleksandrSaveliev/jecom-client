@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <section className="bg-white lg:grid lg:h-screen lg:place-content-center">
+    <section className="bg-white lg:grid h-screen-minus-header lg:place-content-center">
       <div className="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
         <div className="max-w-prose text-left">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">

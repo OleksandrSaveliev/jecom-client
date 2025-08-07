@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .h-screen-minus-header {
+    height: calc(100vh - 4rem);
+  }
+}
 /* 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

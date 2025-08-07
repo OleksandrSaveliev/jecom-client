@@ -11,7 +11,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4">
+    <div className="flex items-center justify-center h-screen-minus-header px-4">
       <div className="w-full max-w-xl p-10 border border-gray-200 rounded-xl shadow-xl">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Sign in to your account
